@@ -14,6 +14,7 @@ namespace PersonManagement
             Console.WriteLine("/remove-person");
             Console.WriteLine("/show-persons");
             Console.WriteLine("/exit");
+            Console.WriteLine("/remove-all-persons");
 
             while (true)
             {
@@ -52,6 +53,15 @@ namespace PersonManagement
                         }
                     }
 
+                }
+                else if (command=="/remove-all-persons")
+                {
+                    for (int i = persons.Count-1; i>=0; i--)
+                    {
+                        persons.RemoveAt(i);
+                        
+                    }
+                    
                 }
                 else if (command == "/show-persons")
                 {
@@ -97,5 +107,6 @@ namespace PersonManagement
         {
             return Name + " " + LastName + " " + FIN;
         }
+
     }
 }
