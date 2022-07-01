@@ -6,19 +6,20 @@ namespace PersonManagement
     internal class Program
     {
 
-           public static List<Person> persons { get; set; } = new List<Person>();
+        public static List<Person> persons { get; set; } = new List<Person>();
 
         static void Main(string[] args)
         {
-            
+
 
 
             Console.WriteLine("Our available commands :");
             Console.WriteLine("/add-new-person");
-            Console.WriteLine("/remove-person");
+            Console.WriteLine("/remove-person-by-fin");
             Console.WriteLine("/show-persons");
             Console.WriteLine("/exit");
             Console.WriteLine("/remove-all-persons");
+            Console.WriteLine("/remove-by-ID");
 
             while (true)
             {
@@ -43,7 +44,7 @@ namespace PersonManagement
                     Console.WriteLine(person.GetInfo() + " - Added to system.");
 
                 }
-                else if (command == "/remove-person")
+                else if (command == "/remove-person-by-fin")
                 {
                     Console.Write("To remove person, please enter his/her FIN code : ");
                     string fin = Console.ReadLine();
@@ -58,14 +59,27 @@ namespace PersonManagement
                     }
 
                 }
-                else if (command=="/remove-all-persons")
+                else if (command == "/remove-all-persons")
                 {
-                    for (int i = persons.Count-1; i>=0; i--)
+                    for (int i = persons.Count - 1; i >= 0; i--)
                     {
                         persons.RemoveAt(i);
-                        
+
                     }
-                    
+
+                }
+                else if (command == "/remove-by-ID")
+                {
+                    Console.Write("To remove person, please enter his/her ID code : ");
+                    uint id =Convert.ToUInt32(Console.ReadLine());
+                    for (int i = 0; i < persons.Count; i++)
+                    {
+                        if (persons[i].ID == id)
+                        {                         
+                            persons.RemoveAt(i);
+                            Console.WriteLine("Person removed successfully");
+                        }
+                    }
                 }
                 else if (command == "/show-persons")
                 {
@@ -92,15 +106,16 @@ namespace PersonManagement
             Person person = new Person(name, lastName, fin);
             persons.Add(person);
         }
+
     }
 
     class Person
     {
-        public static uint CounterID = 1;
+        private static uint CounterID = 1;
+        public uint ID { get; private set; }
         public string Name { get; set; }
         public string LastName { get; set; }
         public string FIN { get; set; }
-        public uint ID { get; private set; }
 
         public Person(string name, string lastName, string fin)
         {
@@ -120,6 +135,6 @@ namespace PersonManagement
             return ID + " " + Name + " " + LastName + " " + FIN;
         }
 
-     
+
     }
 }
